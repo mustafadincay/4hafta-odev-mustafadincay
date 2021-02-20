@@ -8,45 +8,21 @@ export const makeBgActive = (movie) => {
     "#d7f0f7";
 };
 
-//radiobuttons oluşturma
-export const createRadioEl = (type, name, id, value) => {
+//radiobuttons veya checkbox oluşturma
+export const createEl = (type, name, id, value) => {
   return `  
   <div class="form-check">
   <input class="form-check-input" type="${type}" name="${name}" id="${name}${id}" value="${value}">
-  <label class="form-check-label"> ${value} </label>
+  <label class="form-check-label" for="year${id}"> ${value} </label>
   </div>`;
 };
 
-///checkbox oluşturma
-export const createCheckEl = (type, name, id, value) => {
-  return `
-  <div class="form-check">
-    <input class="form-check-input" type="${type}" name="${name}" id="${name}${id} "value="${value}">
-      <label class="form-check-label">
-      ${value}
-      </label>
-  </div>`;
-};
-//tekrar etmeyen yılları bulmak için yapılan fonksiyon
-export const findMovie = () => {
+export const getValues = (type) => {
   let arr = [];
   let uniq = [];
   data.map((movie) => {
-    arr.push(movie.year);
-    uniq = [...new Set(arr)];
-  });
-  return {
-    uniq,
-  };
-};
-
-//tekrar etmeyen genreleri bulmak için yapılan fonksiyon
-export const findGenre = () => {
-  let arr = [];
-  let uniq = [];
-  data.map((movie) => {
-    arr.push(movie.genre);
-    uniq = [...new Set(arr)];
+    arr.push(movie[type]);
+    uniq = [...new Set(arr)].reverse();
   });
   return {
     uniq,

@@ -2,10 +2,8 @@ import data from "./data.js";
 import {
   searchMovieByTitle,
   makeBgActive,
-  createRadioEl,
-  findMovie,
-  findGenre,
-  createCheckEl,
+  getValues,
+  createEl,
 } from "./helpers.js";
 
 class MoviesApp {
@@ -73,9 +71,9 @@ class MoviesApp {
   }
 
   fillYear() {
-    const temp = findMovie(); //burdan benzersiz yıllar geliyor
+    const temp = getValues("year"); //burdan benzersiz yıllar geliyor
     for (let i = 0; i < temp.uniq.length; i++) {
-      let radioBtns = createRadioEl(
+      let radioBtns = createEl(
         "radio",
         `${data.year}`,
         `${data.year}${data.id}`,
@@ -87,9 +85,9 @@ class MoviesApp {
   }
 
   fillGenre() {
-    const temp = findGenre(); //burdan benzersiz genreler geliyor
+    const temp = getValues("genre"); //burdan benzersiz genreler geliyor
     for (let i = 0; i < temp.uniq.length; i++) {
-      let genreBtns = createCheckEl(
+      let genreBtns = createEl(
         "checkbox",
         `${data.genre}`,
         `${data.genre}${data.id}`,
@@ -101,7 +99,7 @@ class MoviesApp {
   }
 
   newHandleYearFilter() {
-    const temp = findMovie(); ////uniq yıllar geldi
+    const temp = getValues("year"); ////uniq yıllar geldi
     this.$yearSubmitter.addEventListener("click", () => {
       this.reset();
       const selectedYear = document.querySelector(
@@ -116,7 +114,7 @@ class MoviesApp {
   }
 
   handleGenreFilter() {
-    const temp = findGenre(); //uniq genreler geldi
+    const temp = getValues("genre"); //uniq genreler geldi
     this.$genreSubmitter.addEventListener("click", () => {
       this.reset();
       const selectedGenre = Array.from(
@@ -132,8 +130,6 @@ class MoviesApp {
     this.fillTable();
     this.handleSearch();
     this.newHandleYearFilter();
-    //findMovie();
-    //findGenre();
     this.fillYear();
     this.fillGenre();
     this.handleGenreFilter();
